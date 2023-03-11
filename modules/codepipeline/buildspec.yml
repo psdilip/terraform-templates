@@ -1,0 +1,36 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Installing AWS CLI"
+      - pip install --upgrade awscli
+      - echo "Installing Terraform on branch stage"
+      - curl -s -qL -o terraform_install.zip https://releases.hashicorp.com/terraform/1.2.3/terraform_1.2.3_linux_amd64.zip && unzip terraform_install.zip -d /usr/bin/
+      - chmod +x /usr/bin/terraform
+    finally:
+      - echo "Display Terraform Version"
+      - terraform --version
+  pre_build:
+    commands:
+      - echo "Terraform init"
+      - ls
+      - cd stg-terraform/
+      - ls
+      - terraform init -reconfigure
+      - terraform workspace list
+      - terraform workspace select stage
+      - cd package
+      - zip -r ../update-lt.zip .
+      - cd ..
+      - zip -g update-lt.zip lambda.py
+      - echo "Executing Terraform plan"
+      - terraform plan
+    finally:
+      - echo "Terraform plan has been executed"
+  build:
+    commands:
+      - echo "Terraform Apply"
+      - terraform apply -auto-approve
+    finally:
+      - echo "Terraform apply has been executed"
