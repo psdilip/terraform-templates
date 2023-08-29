@@ -1,0 +1,25 @@
+# Local .terraform directories
+**/.terraform/
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+
+# Exclude the actual tfvars files, but include any example ones
+*.tfvars
+!example*.tfvars
+
+# .tfplan files
+*.tfplan
+
+# Exclude sensitive files
+*.pem
+*.key
+
+# Exclude the generated EC2 scheduler code
+lambda/lambda_code/
+
+.terraform.lock.hcl

@@ -8,14 +8,16 @@ def lambda_handler(event, context):
 
     aws_region = os.environ['REGION']   
     timezone = os.environ['TIMEZONE']
+    ec2_instance_start_time = os.environ['START_TIME']
+    ec2_instance_stop_time = os.environ['STOP_TIME']
 
     ec2 = boto3.client('ec2', region_name=aws_region)
     target_tz = pytz.timezone(timezone)
 
     current_time_utc = datetime.datetime.now(pytz.utc)
-    current_time_london = current_time_utc.astimezone(target_tz)
+    current_time_target = current_time_utc.astimezone(target_tz)
     
-    if current_time_london.hour >= 4 and current_time_london.hour < 16:
+    if current_time_target.hour >= ec2_instance_start_time and current_time_target.hour < ec2_instance_stop_time:
         start_instances(ec2)
     else:
         stop_instances(ec2)

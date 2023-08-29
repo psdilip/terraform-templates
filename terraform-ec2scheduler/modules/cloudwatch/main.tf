@@ -1,7 +1,9 @@
 resource "aws_cloudwatch_event_rule" "ec2_schedule_rule" {
   name        = "EC2ScheduleRule"
   description = "Scheduled EC2 instance start and stop"
-  schedule_expression = "cron(0 ${var.ec2_instance_start_time}-${var.ec2_instance_stop_time} ? * MON-FRI *)"
+  schedule_expression = "cron(0 ${var.ec2_instance_start_time}-${var.ec2_instance_stop_time} ? * * *)"
+  # schedule_expression = "rate(5 minutes)"
+  
 }
 
 resource "aws_cloudwatch_event_target" "ec2_schedule_target" {

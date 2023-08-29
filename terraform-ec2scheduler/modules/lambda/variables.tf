@@ -34,3 +34,7 @@ variable "ec2_instance_stop_time" {
   description = "The hour when instances should stop (in 24-hour format)"
   type        = number
 }
+
+variable "ec2_schedule_rule" {
+  description = ""
+}

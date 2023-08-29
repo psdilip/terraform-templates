@@ -1,17 +1,19 @@
 locals {
-  ec2_instance_start_time = 4
-  ec2_instance_stop_time = 16
+  ec2_instance_start_time = 1
+  ec2_instance_stop_time = 23
 }
 
 
 module "ec2_scheduler_lambda" {
   source = "./modules/lambda"
 
-  lambda_code_path = "modules/lambda/lambda_code"
+  lambda_code_path = "modules/lambda/lambda_code/index.py"
   iam_role_arn = module.ec2_scheduler_iam.iam_role_arn
 
   aws_region = "us-east-1"
-  timezone = "Europe/London"
+  timezone = "America/Los_Angeles"
+
+  ec2_schedule_rule = module.ec2_scheduler_cloudwatch.ec2_schedule_rule
 
   ec2_instance_start_time = local.ec2_instance_start_time
   ec2_instance_stop_time = local.ec2_instance_stop_time
@@ -21,7 +23,7 @@ module "ec2_scheduler_lambda" {
     Name        = "EC2 Scheduler Lambda"
     Environment = "Production"
     Project     = "Resource Automation"
-    Owner       = "YourName"
+    Owner       = "Sai"
     Department  = "Engineering"
     Application = "EC2 Scheduler"
     CostCenter  = "12345"

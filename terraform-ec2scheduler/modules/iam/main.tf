@@ -53,7 +53,7 @@ resource "aws_iam_policy" "lambda_cloudwatch_logs_policy" {
           "logs:CreateLogStream",
           "logs:PutLogEvents"
         ],
-        Resource = "arn:aws:logs:${var.region}:${var.account_id}:*"
+        Resource = "*"
       }
     ]
   })
@@ -61,5 +61,5 @@ resource "aws_iam_policy" "lambda_cloudwatch_logs_policy" {
 
 resource "aws_iam_role_policy_attachment" "lambda_cloudwatch_logs_attachment" {
   policy_arn = aws_iam_policy.lambda_cloudwatch_logs_policy.arn
-  role       = aws_lambda_function.ec2_scheduler_lambda.role
+  role       = aws_iam_role.lambda_role.name
 }
