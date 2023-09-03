@@ -7,3 +7,7 @@ variable "iam_tags" {
   type        = map(string)
   default     = {}
 }
+
+# variable "sftp_user_home_directory" {
+#   description = ""
+# }

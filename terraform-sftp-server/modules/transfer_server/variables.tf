@@ -3,5 +3,13 @@ variable "sftp_server_tags" {
 }
 
 variable "sftp_server_role" {
-    description = ""
+  description = ""
+}
+
+variable "sftp_server_logging_role" {
+  description = ""
+}
+
+variable "cloudwatch_log_group" {
+  description = ""
 }
