@@ -7,18 +7,18 @@ variable "lambda_tags" {
 variable "timezone" {
   description = "Timezone for scheduling"
   type        = string
-  default = ""
+  default     = ""
 }
 
 variable "aws_region" {
   description = "AWS region for the Lambda function"
   type        = string
-  default = ""
+  default     = ""
 }
 
 variable "lambda_code_path" {
   description = "Path to the Lambda function code"
-  default = ""
+  default     = ""
 }
 
 variable "iam_role_arn" {

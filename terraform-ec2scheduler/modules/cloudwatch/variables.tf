@@ -1,5 +1,5 @@
 variable "lambda_function_arn" {
-    description = ""
+  description = ""
 }
 
 variable "cloudwatch_tags" {

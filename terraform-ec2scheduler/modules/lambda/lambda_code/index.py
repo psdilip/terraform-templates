@@ -8,8 +8,8 @@ def lambda_handler(event, context):
 
     aws_region = os.environ['REGION']   
     timezone = os.environ['TIMEZONE']
-    ec2_instance_start_time = os.environ['START_TIME']
-    ec2_instance_stop_time = os.environ['STOP_TIME']
+    ec2_instance_start_time = int(os.environ['START_TIME'])
+    ec2_instance_stop_time = int(os.environ['STOP_TIME'])
 
     ec2 = boto3.client('ec2', region_name=aws_region)
     target_tz = pytz.timezone(timezone)

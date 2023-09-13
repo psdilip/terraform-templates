@@ -1,24 +1,24 @@
 locals {
   ec2_instance_start_time = 1
-  ec2_instance_stop_time = 23
+  ec2_instance_stop_time  = 23
 }
 
 
 module "ec2_scheduler_lambda" {
   source = "./modules/lambda"
 
-  lambda_code_path = "modules/lambda/lambda_code/index.py"
-  iam_role_arn = module.ec2_scheduler_iam.iam_role_arn
+  lambda_code_path = "modules/lambda/lambda_code/"
+  iam_role_arn     = module.ec2_scheduler_iam.iam_role_arn
 
   aws_region = "us-east-1"
-  timezone = "America/Los_Angeles"
+  timezone   = "America/Los_Angeles"
 
   ec2_schedule_rule = module.ec2_scheduler_cloudwatch.ec2_schedule_rule
 
   ec2_instance_start_time = local.ec2_instance_start_time
-  ec2_instance_stop_time = local.ec2_instance_stop_time
+  ec2_instance_stop_time  = local.ec2_instance_stop_time
 
-  
+
   lambda_tags = {
     Name        = "EC2 Scheduler Lambda"
     Environment = "Production"
@@ -49,40 +49,40 @@ module "ec2_scheduler_iam" {
 }
 
 module "ec2_instance" {
-  source       = "./modules/ec2"
+  source = "./modules/ec2"
 
   instance_tags = {
-    Name           = "EC2 Scheduler EC2"
-    Environment    = "Development"
-    AutoStartStop  = "true"
-    Project        = "Resource Automation"
-    Owner          = "Sai"
-    Department     = "Engineering"
-    Application    = "EC2 Scheduler"
-    CostCenter     = "12345"
-    Tier           = "Critical"
-    Service        = "EC2"
+    Name          = "EC2 Scheduler EC2"
+    Environment   = "Development"
+    AutoStartStop = "true"
+    Project       = "Resource Automation"
+    Owner         = "Sai"
+    Department    = "Engineering"
+    Application   = "EC2 Scheduler"
+    CostCenter    = "12345"
+    Tier          = "Critical"
+    Service       = "EC2"
   }
 }
 
 module "ec2_scheduler_cloudwatch" {
-  source       = "./modules/cloudwatch"
+  source = "./modules/cloudwatch"
 
   lambda_function_arn = module.ec2_scheduler_lambda.lambda_function_arn
 
-  ec2_instance_start_time = local.ec2_instance_start_time 
-  ec2_instance_stop_time = local.ec2_instance_stop_time
+  ec2_instance_start_time = local.ec2_instance_start_time
+  ec2_instance_stop_time  = local.ec2_instance_stop_time
 
   cloudwatch_tags = {
-    Name           = "EC2 Scheduler Cloudwatch"
-    Environment    = "Development"
-    AutoStartStop  = "true"
-    Project        = "Resource Automation"
-    Owner          = "Sai"
-    Department     = "Engineering"
-    Application    = "EC2 Scheduler"
-    CostCenter     = "12345"
-    Tier           = "Critical"
-    Service        = "Cloudwatch"
+    Name          = "EC2 Scheduler Cloudwatch"
+    Environment   = "Development"
+    AutoStartStop = "true"
+    Project       = "Resource Automation"
+    Owner         = "Sai"
+    Department    = "Engineering"
+    Application   = "EC2 Scheduler"
+    CostCenter    = "12345"
+    Tier          = "Critical"
+    Service       = "Cloudwatch"
   }
 }
