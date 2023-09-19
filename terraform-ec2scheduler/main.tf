@@ -1,6 +1,6 @@
 locals {
   ec2_instance_start_time = 1
-  ec2_instance_stop_time  = 23
+  ec2_instance_stop_time  = 8
 }
 
 
@@ -48,22 +48,22 @@ module "ec2_scheduler_iam" {
   }
 }
 
-module "ec2_instance" {
-  source = "./modules/ec2"
+# module "ec2_instance" {
+#   source = "./modules/ec2"
 
-  instance_tags = {
-    Name          = "EC2 Scheduler EC2"
-    Environment   = "Development"
-    AutoStartStop = "true"
-    Project       = "Resource Automation"
-    Owner         = "Sai"
-    Department    = "Engineering"
-    Application   = "EC2 Scheduler"
-    CostCenter    = "12345"
-    Tier          = "Critical"
-    Service       = "EC2"
-  }
-}
+#   instance_tags = {
+#     Name          = "EC2 Scheduler EC2"
+#     Environment   = "Development"
+#     AutoStartStop = "true"
+#     Project       = "Resource Automation"
+#     Owner         = "Sai"
+#     Department    = "Engineering"
+#     Application   = "EC2 Scheduler"
+#     CostCenter    = "12345"
+#     Tier          = "Critical"
+#     Service       = "EC2"
+#   }
+# }
 
 module "ec2_scheduler_cloudwatch" {
   source = "./modules/cloudwatch"
